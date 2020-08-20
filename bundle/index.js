@@ -40,7 +40,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(283);
+/******/ 		return __webpack_require__(932);
 /******/ 	};
 /******/
 /******/ 	// run startup
@@ -2244,34 +2244,6 @@ const request = withDefaults(endpoint.endpoint, {
 exports.request = request;
 //# sourceMappingURL=index.js.map
 
-
-/***/ }),
-
-/***/ 283:
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __importDefault(__webpack_require__(186));
-var github_1 = __importDefault(__webpack_require__(438));
-try {
-    // `who-to-greet` input defined in action metadata file
-    var nameToGreet = core_1.default.getInput("who-to-greet");
-    console.log("Hello " + nameToGreet + "!");
-    var time = new Date().toTimeString();
-    core_1.default.setOutput("time", time);
-    // Get the JSON webhook payload for the event that triggered the workflow
-    var payload = JSON.stringify(github_1.default.context.payload, undefined, 2);
-    console.log("The event payload: " + payload);
-}
-catch (error) {
-    core_1.default.setFailed(error.message);
-}
-//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -4625,6 +4597,34 @@ exports.FetchError = FetchError;
 
 /***/ }),
 
+/***/ 481:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+class Deprecation extends Error {
+  constructor(message) {
+    super(message); // Maintains proper stack trace (only available on V8)
+
+    /* istanbul ignore next */
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, this.constructor);
+    }
+
+    this.name = 'Deprecation';
+  }
+
+}
+
+exports.Deprecation = Deprecation;
+
+
+/***/ }),
+
 /***/ 537:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -4635,7 +4635,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var deprecation = __webpack_require__(932);
+var deprecation = __webpack_require__(481);
 var once = _interopDefault(__webpack_require__(223));
 
 const logOnce = once(deprecation => console.warn(deprecation));
@@ -5849,29 +5849,23 @@ exports.HttpClient = HttpClient;
 /***/ }),
 
 /***/ 932:
-/***/ (function(__unusedmodule, exports) {
+/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-"use strict";
+const core = __webpack_require__(186);
+const github = __webpack_require__(438);
 
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-class Deprecation extends Error {
-  constructor(message) {
-    super(message); // Maintains proper stack trace (only available on V8)
-
-    /* istanbul ignore next */
-
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, this.constructor);
-    }
-
-    this.name = 'Deprecation';
-  }
-
+try {
+  // `who-to-greet` input defined in action metadata file
+  const nameToGreet = core.getInput("who-to-greet");
+  console.log(`Hello ${nameToGreet}!`);
+  const time = new Date().toTimeString();
+  core.setOutput("time", time);
+  // Get the JSON webhook payload for the event that triggered the workflow
+  const payload = JSON.stringify(github.context.payload, undefined, 2);
+  console.log(`The event payload: ${payload}`);
+} catch (error) {
+  core.setFailed(error.message);
 }
-
-exports.Deprecation = Deprecation;
 
 
 /***/ }),
