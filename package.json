@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
-    "bundle": "ncc build index.js -o ./bundle"
+    "bundle": "ncc build src/index.ts -o ./bundle",
+    "build": "npm run compile && npm run bundle"
   },
   "repository": {
     "type": "git",
