@@ -7,6 +7,7 @@ const expectedConditionals: ConditionalData[] = [
   { lineNumber: 5, columnNumber: 1 },
   { lineNumber: 7, columnNumber: 8 },
   { lineNumber: 9, columnNumber: 8 },
+  { lineNumber: 13, columnNumber: 3 },
 ];
 
 describe("ConditionalDetector", () => {
@@ -16,7 +17,7 @@ describe("ConditionalDetector", () => {
       const detector = new ConditionalDetector(dataPath);
       const conditionals: Conditional[] = detector.getConditionals();
 
-      expect(conditionals.length).toEqual(4);
+      expect(conditionals.length).toEqual(5);
       expect(conditionals.every((c) => c.getFilePath() === dataPath));
 
       conditionals.forEach((conditional, i) => {
