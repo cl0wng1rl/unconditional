@@ -1,19 +1,20 @@
 import Conditional from "./Conditional";
-import ConditionalBuilder from "./ConditionalBuilder";
 import { readFileSync } from "fs";
+import PositionCalculator, { PositionData } from "./PositionCalculator";
 
 export default class ConditionalDetector {
-  private static readonly IF_REG_EX: RegExp = /(\/\*[\s\S]*?\*\/|\/\/.*)|((?:(?:[^\w]|^)if ?\()|(\n))/gm;
+  private static readonly IF_REG_EX: RegExp = /((?:[ \t]|^)if ?\()|(\/\*[\s\S]*?\*\/|\/\/.*)/gm;
 
+  private filePath: string;
   private fileContent: string;
-  private builder: ConditionalBuilder;
   private currentMatch: RegExpExecArray | null = null;
-  private currentLineNumber: number = 1;
+  private positionCalculator: PositionCalculator;
   private conditionals: Conditional[] = [];
 
   constructor(filePath: string) {
+    this.filePath = filePath;
     this.fileContent = readFileSync(filePath).toString();
-    this.builder = new ConditionalBuilder().withFilePath(filePath);
+    this.positionCalculator = new PositionCalculator(this.fileContent);
     this.findConditionals();
   }
 
@@ -23,27 +24,28 @@ export default class ConditionalDetector {
 
   private findConditionals(): void {
     this.currentMatch = ConditionalDetector.IF_REG_EX.exec(this.fileContent);
+    this.loopThroughConditionalMatches();
+  }
+
+  private loopThroughConditionalMatches(): void {
     while (this.currentMatch !== null) {
       this.handleMatch(this.currentMatch);
-      this.setToNextMatch();
+      this.setCurrentMatchToNextMatch();
     }
   }
 
-  private handleMatch(match: RegExpExecArray) {
-    if (match[0] !== undefined) this.currentLineNumber += match[0].split("\n").length;
-    else if (match[1] !== undefined) this.addConditionalWithColumnIndex(match.index);
-    else if (match[2] !== undefined) this.currentLineNumber++;
+  private handleMatch(match: RegExpExecArray): void {
+    if (match[1]) {
+      this.addConditionalAt(match.index + match[0].indexOf("if"));
+    }
   }
 
-  private addConditionalWithColumnIndex(index: number) {
-    const conditional: Conditional = this.builder
-      .withLineNumber(this.currentLineNumber)
-      .withColumnNumber(index)
-      .build();
-    this.conditionals.push(conditional);
+  private addConditionalAt(index: number): void {
+    const position: PositionData = this.positionCalculator.getPositionData(index);
+    this.conditionals.push(Conditional.newInstance(this.filePath, position.line, position.column));
   }
 
-  private setToNextMatch(): void {
+  private setCurrentMatchToNextMatch(): void {
     this.currentMatch = ConditionalDetector.IF_REG_EX.exec(this.fileContent);
   }
 }
