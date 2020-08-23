@@ -10,7 +10,7 @@
     "build:watch": "onchange 'src/**/*.ts' -- npm run build",
     "view:coverage": "serve coverage/lcov-report",
     "clean": "rm -rf coverage src/**/*.js src/**/*.map",
-    "bundle": "ncc build src/index.ts -o ./bundle"
+    "bundle": "ncc build src/index.ts -o ./bundle -m"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,8 @@
   "homepage": "https://github.com/gabrielbarker/Unconditional#readme",
   "dependencies": {
     "@actions/core": "^1.2.4",
-    "@actions/github": "^4.0.0"
+    "@actions/github": "^4.0.0",
+    "tiny-glob": "^0.2.6"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.23.0",
