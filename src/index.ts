@@ -1,11 +1,11 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import ConditionalDetector from "./main/ConditionalDetector";
-import PathRetriever from "./main/PathRetriever";
+import GlobHandler from "./main/GlobHandler";
 
 async function run(): Promise<void> {
   try {
-    const files = await new PathRetriever().getPaths("*/**/*.ts");
+    const files = await new GlobHandler().getPaths("*/**/*.ts");
     files.forEach((file) => {
       const cond = new ConditionalDetector(file);
       const positionList = cond
