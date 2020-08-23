@@ -15,7 +15,6 @@ async function run(): Promise<void> {
     // console.log(`The event payload: ${payload}`);
     console.log(readdirSync("./"));
     console.log(readdirSync(__dirname));
-    console.log(readdirSync(__filename));
     console.log(readdirSync("../"));
     const mainPath = "../src/main";
     const files = readdirSync("src/main");

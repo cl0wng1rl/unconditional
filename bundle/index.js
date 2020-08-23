@@ -131,7 +131,6 @@ function run() {
         try {
             console.log(fs_1.readdirSync("./"));
             console.log(fs_1.readdirSync(__dirname));
-            console.log(fs_1.readdirSync(__filename));
             console.log(fs_1.readdirSync("../"));
             const mainPath = "../src/main";
             const files = fs_1.readdirSync("src/main");
