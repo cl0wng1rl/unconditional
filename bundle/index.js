@@ -129,9 +129,16 @@ const ConditionalDetector_1 = __importDefault(__webpack_require__(834));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log("./");
             console.log(fs_1.readdirSync("./"));
+            console.log(__dirname);
             console.log(fs_1.readdirSync(__dirname));
+            console.log("../");
             console.log(fs_1.readdirSync("../"));
+            console.log("../src/");
+            console.log(fs_1.readdirSync("../src/"));
+            console.log("../src/main/");
+            console.log(fs_1.readdirSync("../src/main/"));
             const mainPath = "../src/main";
             const files = fs_1.readdirSync("src/main");
             files.forEach((file) => {
