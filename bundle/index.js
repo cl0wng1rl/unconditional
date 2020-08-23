@@ -129,10 +129,10 @@ const ConditionalDetector_1 = __importDefault(__webpack_require__(834));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const mainPath = "../src/main";
+            const mainPath = "../../src/main";
             const files = fs_1.readdirSync("src/main");
             files.forEach((file) => {
-                const path = __webpack_require__.ab + "main/" + file;
+                const path = `${__dirname}/${mainPath}/${file}`;
                 const cond = new ConditionalDetector_1.default(path);
                 const positionList = cond
                     .getConditionals()
