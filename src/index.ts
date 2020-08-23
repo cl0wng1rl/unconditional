@@ -5,7 +5,7 @@ import PathRetriever from "./main/PathRetriever";
 
 async function run(): Promise<void> {
   try {
-    const files = await new PathRetriever().getPaths();
+    const files = await new PathRetriever().getPaths("*/**/*.ts");
     files.forEach((file) => {
       const cond = new ConditionalDetector(file);
       const positionList = cond

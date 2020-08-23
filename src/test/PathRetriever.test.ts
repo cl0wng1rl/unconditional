@@ -9,14 +9,24 @@ jest.mock("tiny-glob", () =>
 describe("PathRetriever", () => {
   describe("getPaths", () => {
     const mockGlob = mocked(glob, true);
-    it("should call glob with correct path and return mocked value", async () => {
+    it("should correctly use the glob module", async () => {
+      // Given
+      const pr = new PathRetriever();
+      const globPattern = "glob-pattern";
+      // When
+      await pr.getPaths(globPattern);
+      // Then
+      const defaultOptions = { filesOnly: true };
+      expect(mockGlob).toBeCalledWith(globPattern, defaultOptions);
+    });
+
+    it("should return mocked value", async () => {
       // Given
       const pr = new PathRetriever();
       // When
-      const paths = await pr.getPaths();
+      const globPattern = "glob-pattern";
+      const paths = await pr.getPaths(globPattern);
       // Then
-      expect(mockGlob).toBeCalled();
-      expect(paths.length).toEqual(3);
       const expectedPaths = ["path1", "path2", "path3"];
       expect(paths).toEqual(expectedPaths);
     });
