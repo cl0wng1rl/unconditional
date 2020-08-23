@@ -19,15 +19,15 @@ async function run(): Promise<void> {
     console.log(readdirSync(__dirname));
     console.log("../");
     console.log(readdirSync("../"));
-    console.log("../src/");
-    console.log(readdirSync("../src/"));
-    console.log("../src/main/");
-    console.log(readdirSync("../src/main/"));
+    console.log("./src/");
+    console.log(readdirSync("./src/"));
+    console.log("./src/main/");
+    console.log(readdirSync("./src/main/"));
 
-    const mainPath = "../src/main";
-    const files = readdirSync("src/main");
+    const mainPath = "./src/main";
+    const files = readdirSync(mainPath);
     files.forEach((file) => {
-      const path = `${__dirname}/${mainPath}/${file}`;
+      const path = `${mainPath}/${file}`;
       const cond = new ConditionalDetector(path);
       const positionList = cond
         .getConditionals()

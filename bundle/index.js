@@ -135,14 +135,14 @@ function run() {
             console.log(fs_1.readdirSync(__dirname));
             console.log("../");
             console.log(fs_1.readdirSync("../"));
-            console.log("../src/");
-            console.log(fs_1.readdirSync("../src/"));
-            console.log("../src/main/");
-            console.log(fs_1.readdirSync("../src/main/"));
-            const mainPath = "../src/main";
-            const files = fs_1.readdirSync("src/main");
+            console.log("./src/");
+            console.log(fs_1.readdirSync("./src/"));
+            console.log("./src/main/");
+            console.log(fs_1.readdirSync("./src/main/"));
+            const mainPath = "./src/main";
+            const files = fs_1.readdirSync(mainPath);
             files.forEach((file) => {
-                const path = __webpack_require__.ab + "main/" + file;
+                const path = `${mainPath}/${file}`;
                 const cond = new ConditionalDetector_1.default(path);
                 const positionList = cond
                     .getConditionals()
