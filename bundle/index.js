@@ -130,7 +130,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const mainPath = "../src/main";
-            const files = fs_1.readdirSync(mainPath);
+            const files = fs_1.readdirSync("src/main");
             files.forEach((file) => {
                 const path = __webpack_require__.ab + "main/" + file;
                 const cond = new ConditionalDetector_1.default(path);

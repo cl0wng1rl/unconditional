@@ -14,7 +14,7 @@ async function run(): Promise<void> {
     // const payload = JSON.stringify(github.context.payload, undefined, 2);
     // console.log(`The event payload: ${payload}`);
     const mainPath = "../src/main";
-    const files = readdirSync(mainPath);
+    const files = readdirSync("src/main");
     files.forEach((file) => {
       const path = `${__dirname}/${mainPath}/${file}`;
       const cond = new ConditionalDetector(path);
