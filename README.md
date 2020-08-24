@@ -37,4 +37,4 @@ Unconditional allows for this fact by letting users specify these files that wil
 
 ## License
 
-MIT
+[MIT](https://github.com/gabrielbarker/Unconditional/blob/master/LICENSE)
