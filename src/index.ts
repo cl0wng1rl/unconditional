@@ -5,7 +5,7 @@ import FileRetriever from "./main/FileRetriever";
 
 async function run(): Promise<void> {
   try {
-    const files = await new FileRetriever().getPaths("/src/**/*.ts");
+    const files = await new FileRetriever().getPaths(["/src/**/*.ts"], ["/src/**/*.test.ts"]);
     files.forEach((file) => {
       const cond = new ConditionalDetector(file);
       const positionList = cond
