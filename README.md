@@ -12,8 +12,10 @@
   </a>
 </div>
 
-_A GitHub action to determine the concentration and distribution of conditional logic in your code_
-
+<div align="center">
+<b>A GitHub action to determine the concentration and distribution of conditional logic in your code</b>
+</div>
+<br>
 > Insist on simplicity. Resist special cases. Listen to conditionals. Identify underlying concepts. And search for the abstractions that let you treat everything the same.
 
 > -- _Sandi Metz, [Make Everything The Same](https://sandimetz.com/blog/2016/6/9/make-everything-the-same)_
