@@ -29,10 +29,11 @@
     "tiny-glob": "^0.2.6"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.23.0",
     "@types/jest": "^26.0.10",
     "@types/node": "^14.6.0",
     "@types/source-map-support": "^0.5.2",
+    "@vercel/ncc": "^0.23.0",
+    "codecov": "^3.7.2",
     "jest": "^26.4.2",
     "onchange": "^7.0.2",
     "serve": "^11.3.2",
