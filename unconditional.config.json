@@ -1,6 +1,6 @@
 {
-  "include": [],
-  "exclude": [],
+  "include": ["/src/**/*.ts"],
+  "exclude": ["/src/**/*.test.ts"],
   "conditionalLayer": [],
   "max": 1
 }
