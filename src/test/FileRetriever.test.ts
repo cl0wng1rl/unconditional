@@ -1,6 +1,5 @@
 import FileRetriever from "../main/FileRetriever";
 import GlobHandler from "../main/GlobHandler";
-import { mocked } from "ts-jest/utils";
 
 const mockGetPaths = (...func: ((...x: any[]) => any)[]) => {
   const x = jest.fn();
