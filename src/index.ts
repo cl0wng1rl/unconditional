@@ -1,11 +1,11 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import ConditionalDetector from "./main/ConditionalDetector";
-import PathRetriever from "./main/PathRetriever";
+import FileRetriever from "./main/FileRetriever";
 
 async function run(): Promise<void> {
   try {
-    const files = await new PathRetriever().getPaths();
+    const files = await new FileRetriever().getPaths("/src/**/*.ts");
     files.forEach((file) => {
       const cond = new ConditionalDetector(file);
       const positionList = cond
