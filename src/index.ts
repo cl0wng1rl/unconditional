@@ -3,9 +3,8 @@ import * as github from "@actions/github";
 import ConditionalDetector from "./main/ConditionalDetector";
 import FileRetriever from "./main/FileRetriever";
 
-function parseStringList(arrString: string): string[] {
-  return arrString.split(" ").filter((s) => s.length);
-}
+const parseStringList = (arrString: string): string[] =>
+  arrString.split(" ").filter((s) => s.length);
 
 async function run(): Promise<void> {
   try {
