@@ -9,6 +9,9 @@
   <a href="https://codecov.io/gh/gabrielbarker/Unconditional">
     <img src="https://codecov.io/gh/gabrielbarker/Unconditional/branch/master/graph/badge.svg" />
   </a>
+  <a href="https://dev.to/devteam/announcing-the-github-actions-hackathon-on-dev-3ljn">
+    <img src="https://img.shields.io/badge/Hackathon-GitHub%20Actions-blueviolet" />
+  </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
   </a>
