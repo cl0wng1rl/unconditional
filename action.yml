@@ -1,23 +1,22 @@
 name: "Hello World"
 description: "Greet someone and record the time"
 inputs:
-  include: # globs of files to include
+  include: # globs of files to include, space seperated
     description: "Glob patterns for files to include in the search"
     required: true
-    default:
-      - "**/*"
-  exclude: # globs of files to exclude
+    default: "**/*"
+  exclude: # globs of files to exclude, space seperated
     description: "Glob patterns for files to be excluded from the search"
     required: false
     default: []
-  conditionalLayer: # globs of files allowed to contain conditionals
+  conditionalLayer: # globs of files allowed to contain conditionals, space seperated
     description: "Glob patterns for the files in which your conditionals reside"
     required: false
     default: []
-  max: # maximum number of conditionals
+  max: # maximum number of conditionals, as a string
     description: "The maximum number of conditionals allowed in a given file"
     required: false
-    default: 0
+    default: "0"
 outputs:
   time: # id of output
     description: "The time we greeted you"
