@@ -3,20 +3,16 @@ import * as github from "@actions/github";
 import ConditionalDetector from "./main/ConditionalDetector";
 import FileRetriever from "./main/FileRetriever";
 
+function parseStringList(arrString: string): string[] {
+  return arrString.split(" ").filter((s) => s.length);
+}
+
 async function run(): Promise<void> {
   try {
-    const include: string[] = core.getInput("include").split(" ");
-    const exclude: string[] = core.getInput("exclude").split(" ");
-    const conditionalLayer: string[] = core.getInput("conditionalLayer").split(" ");
+    const include: string[] = parseStringList(core.getInput("include"));
+    const exclude: string[] = parseStringList(core.getInput("exclude"));
+    const conditionalLayer: string[] = parseStringList(core.getInput("conditionalLayer"));
     const max: number = Number.parseInt(core.getInput("max"));
-    console.log("include");
-    console.log(include);
-    console.log("exclude");
-    console.log(exclude);
-    console.log("conditionalLayer");
-    console.log(conditionalLayer);
-    console.log("max");
-    console.log(max);
 
     const files = await new FileRetriever().getPaths(include, exclude);
     files.forEach((file) => {
