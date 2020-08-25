@@ -1,6 +1,8 @@
 <div align="center">
-<h1>Unconditional</h1>
 
+<img src="https://github.com/gabrielbarker/Unconditional/blob/use-inputs-instead-of-a-config-file/img/unconditional.logo.png"/>
+
+<h1>Unconditional</h1>
   <a href="https://travis-ci.com/github/gabrielbarker/Unconditional">
     <img src="https://travis-ci.com/gabrielbarker/Unconditional.svg?branch=master"/>
   </a>
