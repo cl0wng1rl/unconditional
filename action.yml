@@ -8,11 +8,11 @@ inputs:
   exclude: # globs of files to exclude, space seperated
     description: "Glob patterns for files to be excluded from the search"
     required: false
-    default: []
+    default: ""
   conditionalLayer: # globs of files allowed to contain conditionals, space seperated
     description: "Glob patterns for the files in which your conditionals reside"
     required: false
-    default: []
+    default: ""
   max: # maximum number of conditionals, as a string
     description: "The maximum number of conditionals allowed in a given file"
     required: false

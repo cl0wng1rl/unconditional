@@ -8,7 +8,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Find Conditionals
-        uses: gabrielbarker/Unconditional@v0.1.3
+        uses: gabrielbarker/Unconditional@v0.1.4
         with:
           include: "/src/**/*.ts"
           exclude: "/src/**/*.test.ts"
