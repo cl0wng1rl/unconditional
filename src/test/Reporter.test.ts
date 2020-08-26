@@ -14,25 +14,39 @@ const mockImplementation = jest.fn(() => ({
   })),
 }));
 
+const expectedTayblObject = {
+  _files: [
+    {
+      "File Path": "dummy-path-1",
+      Count: 1,
+      _conditional_positions: [{ Position: `line: 3,   column: 2   ` }],
+    },
+    {
+      "File Path": "dummy-path-2",
+      Count: 2,
+      _conditional_positions: [
+        { Position: `line: 5,   column: 7   ` },
+        { Position: `line: 6,   column: 10  ` },
+      ],
+    },
+  ],
+};
+
 describe("Reporter", () => {
-  describe("getPaths", () => {
+  describe("printTable", () => {
     beforeEach(() => (Taybl as jest.Mock).mockImplementation(mockImplementation));
-    it("should correctly use the glob module", async () => {
+    it("should call taybl with the correct object", async () => {
       // Given
+      const conditionals = [
+        Conditional.newInstance("dummy-path-1", 3, 2),
+        Conditional.newInstance("dummy-path-2", 5, 7),
+        Conditional.newInstance("dummy-path-2", 6, 10),
+      ];
       const reporter = new Reporter();
       // When
-      reporter.printTable([Conditional.newInstance("dummy-path", 3, 3)]);
+      reporter.printTable(conditionals);
       // Then
-      const defaultOptions = {
-        files: [
-          {
-            "File Path": "dummy-path",
-            Count: 1,
-            "conditionals for path": [{ Position: `line: 3,   column: 3   ` }],
-          },
-        ],
-      };
-      expect(Taybl).toBeCalledWith(defaultOptions);
+      expect(Taybl).toBeCalledWith(expectedTayblObject);
     });
   });
 });
