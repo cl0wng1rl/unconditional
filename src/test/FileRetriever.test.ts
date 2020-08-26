@@ -1,9 +1,9 @@
 import FileRetriever from "../main/FileRetriever";
 import GlobHandler from "../main/GlobHandler";
 
-const mockGetPaths = (...func: ((...x: any[]) => any)[]) => {
+const mockGetPaths = (...funcs: ((...x: any[]) => any)[]) => {
   const x = jest.fn();
-  func.forEach((fn) => x.mockImplementationOnce(fn));
+  funcs.forEach((fn) => x.mockImplementationOnce(fn));
   return x;
 };
 
