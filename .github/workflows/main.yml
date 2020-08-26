@@ -1,18 +1,18 @@
-on: [push]
+on: [push, pull_request]
 
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Unconditional
     steps:
       - name: Checkout
         uses: actions/checkout@master
       - name: Find Conditionals
-        uses: gabrielbarker/Unconditional@v0.1.4
+        uses: gabrielbarker/Unconditional@v0.1.5
         with:
           include: "/src/**/*.ts"
           exclude: "/src/**/*.test.ts"
           conditionalLayer: ""
-          max: "0"
+          max: "1"
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
