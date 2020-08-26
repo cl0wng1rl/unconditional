@@ -1,7 +1,7 @@
 import Reporter from "../main/Reporter";
 import Taybl from "taybl";
 import Conditional from "../main/Conditional";
-jest.mock("Taybl");
+jest.mock("taybl");
 const mockImplementation = jest.fn(() => ({
   withHorizontalLineStyle: jest.fn(() => ({
     withVerticalLineStyle: jest.fn(() => ({
