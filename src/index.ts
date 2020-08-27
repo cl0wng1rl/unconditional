@@ -15,7 +15,7 @@ async function run(): Promise<void> {
     const conditionalLayer: string[] = parseStringList(core.getInput("conditionalLayer"));
     const max: number = Number.parseInt(core.getInput("max"));
 
-    const files = await new FileRetriever().getPaths(include, exclude);
+    const files = await new FileRetriever(include, exclude, conditionalLayer).getNonLayerPaths();
     let conditionals: Conditional[] = [];
     files.forEach(
       (file) =>
