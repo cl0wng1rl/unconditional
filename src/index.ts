@@ -1,9 +1,9 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import ConditionalFileDetector from "./main/ConditionalFileDetector";
 import FileRetriever from "./main/FileRetriever";
 import Reporter from "./main/Reporter";
 import Conditional from "./main/Conditional";
+import ConditionalDetector from "./main/ConditionalDetector";
 
 const parseStringList = (arrString: string): string[] =>
   arrString.split(" ").filter((s) => s.length);
@@ -16,11 +16,7 @@ async function run(): Promise<void> {
     const max: number = Number.parseInt(core.getInput("max"));
 
     const files = await new FileRetriever(include, exclude, conditionalLayer).getNonLayerPaths();
-    let conditionals: Conditional[] = [];
-    files.forEach(
-      (file) =>
-        (conditionals = conditionals.concat(new ConditionalFileDetector(file).getConditionals()))
-    );
+    const conditionals: Conditional[] = new ConditionalDetector().getConditionals(files);
     new Reporter().printTable(conditionals);
   } catch (error) {
     core.setFailed(error.message);
