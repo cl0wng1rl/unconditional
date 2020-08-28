@@ -4,11 +4,15 @@ type MainReportData = { total: number; files: number; average: number };
 type ComparativeData = { "percent included": number; "files exceeding max": number };
 type ReportData = { included: MainReportData; layer: MainReportData; summary: ComparativeData };
 
+type TableSection = { Section: string; total: number; files: number; average: number };
+type TableObject = { _data: TableSection[] };
+
 export default class DataReporter {
   private data: ReportData = DataReporter.defaultReportData();
 
-  public printData(included: Conditional[], layer: Conditional[], max: number): void {
+  public getDataObject(included: Conditional[], layer: Conditional[], max: number): TableObject {
     this.data = this.getData(included, layer, max);
+    return { _data: [this.getIncludedSection(this.data), this.getLayerSection(this.data)] };
   }
 
   private getData(included: Conditional[], layer: Conditional[], max: number): ReportData {
@@ -57,11 +61,12 @@ export default class DataReporter {
     return { included: defaultData, layer: defaultData, summary: defaultComparative };
   }
 
-  private static defaultMainReportData(): MainReportData {
-    return { total: 0, files: 0, average: 0 };
-  }
+  private getIncludedSection = (data: ReportData) => ({ Section: "Included", ...data.included });
+  private getLayerSection = (data: ReportData) => ({ Section: "Layer", ...data.layer });
 
-  private static defaultComparativeData(): ComparativeData {
-    return { "percent included": 0, "files exceeding max": 0 };
-  }
+  private static defaultMainReportData = (): MainReportData => ({ total: 0, files: 0, average: 0 });
+  private static defaultComparativeData = (): ComparativeData => ({
+    "percent included": 0,
+    "files exceeding max": 0,
+  });
 }
