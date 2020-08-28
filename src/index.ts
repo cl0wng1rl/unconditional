@@ -1,6 +1,6 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import ConditionalDetector from "./main/ConditionalDetector";
+import ConditionalFileDetector from "./main/ConditionalFileDetector";
 import FileRetriever from "./main/FileRetriever";
 import Reporter from "./main/Reporter";
 import Conditional from "./main/Conditional";
@@ -19,7 +19,7 @@ async function run(): Promise<void> {
     let conditionals: Conditional[] = [];
     files.forEach(
       (file) =>
-        (conditionals = conditionals.concat(new ConditionalDetector(file).getConditionals()))
+        (conditionals = conditionals.concat(new ConditionalFileDetector(file).getConditionals()))
     );
     new Reporter().printTable(conditionals);
   } catch (error) {
