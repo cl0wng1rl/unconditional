@@ -2,7 +2,7 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import ConditionalDetector from "./main/ConditionalDetector";
 import FileRetriever from "./main/FileRetriever";
-import Reporter from "./main/Reporter";
+import TableReporter from "./main/TableReporter";
 import Conditional from "./main/Conditional";
 
 const parseStringList = (arrString: string): string[] =>
@@ -21,7 +21,7 @@ async function run(): Promise<void> {
       (file) =>
         (conditionals = conditionals.concat(new ConditionalDetector(file).getConditionals()))
     );
-    new Reporter().printTable(conditionals);
+    new TableReporter().printTable(conditionals);
   } catch (error) {
     core.setFailed(error.message);
   }
