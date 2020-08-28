@@ -1,4 +1,4 @@
-import Reporter from "../main/Reporter";
+import TableReporter from "../main/TableReporter";
 import Taybl from "taybl";
 import Conditional from "../main/Conditional";
 jest.mock("taybl");
@@ -32,7 +32,7 @@ const expectedTayblObject = {
   ],
 };
 
-describe("Reporter", () => {
+describe("TableReporter", () => {
   describe("printTable", () => {
     beforeEach(() => (Taybl as jest.Mock).mockImplementation(mockImplementation));
     it("should call taybl with the correct object", async () => {
@@ -42,7 +42,7 @@ describe("Reporter", () => {
         Conditional.newInstance("dummy-path-2", 5, 7),
         Conditional.newInstance("dummy-path-2", 6, 10),
       ];
-      const reporter = new Reporter();
+      const reporter = new TableReporter();
       // When
       reporter.printTable(conditionals);
       // Then
