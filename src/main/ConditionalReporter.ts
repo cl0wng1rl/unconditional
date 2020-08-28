@@ -5,13 +5,12 @@ type tayblObject = { _files: innerTaybleObject[] };
 type innerTaybleObject = {
   "File Path": string;
   Count: number;
-  _conditional_positions: { Position: string }[];
+  _conditional_positions: { Line: number; Column: number }[];
 };
 
-export default class Reporter {
-  public printTable(data: Conditional[]): void {
-    const tayblData: tayblObject = this.constructTayblObject(data);
-    this.printTayblWithData(tayblData);
+export default class ConditionalReporter {
+  public getDataObject(data: Conditional[]): tayblObject {
+    return this.constructTayblObject(data);
   }
 
   private constructTayblObject(conditionals: Conditional[]): tayblObject {
@@ -41,22 +40,12 @@ export default class Reporter {
     map.get(conditional.getFilePath())!.push(conditional);
   }
 
-  private getConditionalsStrings(conditionals: Conditional[]): { Position: string }[] {
-    return conditionals.map((cond) => ({ Position: this.getConditionalString(cond) }));
+  private getConditionalsStrings(conditionals: Conditional[]): { Line: number; Column: number }[] {
+    return conditionals.map(this.getPositionObject);
   }
 
-  private getConditionalString(conditional: Conditional): string {
-    const linePart = `line: ${conditional.getLineNumber()},`.padEnd(10);
-    const columnPart = `column: ${conditional.getColumnNumber()}`.padEnd(12);
-    return `${linePart} ${columnPart}`;
-  }
-
-  private printTayblWithData(data: tayblObject) {
-    new Taybl(data)
-      .withHorizontalLineStyle("=")
-      .withVerticalLineStyle(":")
-      .withNumberOfSpacesAtEndOfColumns(1)
-      .withNumberOfSpacesAtStartOfColumns(1)
-      .print();
-  }
+  private getPositionObject = (cond: Conditional) => ({
+    Line: cond.getLineNumber(),
+    Column: cond.getColumnNumber(),
+  });
 }

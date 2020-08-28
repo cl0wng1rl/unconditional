@@ -1,7 +1,7 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import FileRetriever from "./main/FileRetriever";
-import TableReporter from "./main/TableReporter";
+import TableReporter from "./main/ConditionalReporter";
 import Conditional from "./main/Conditional";
 import ConditionalDetector from "./main/ConditionalDetector";
 
