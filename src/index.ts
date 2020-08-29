@@ -27,7 +27,7 @@ async function run(): Promise<void> {
     const conditionalReport = new ConditionalReporter().getDataObject(nonLayerConds);
     new Taybl(conditionalReport).withHorizontalLineStyle("=").print();
 
-    const dataReporter = new DataReporter(includedConds, layerConds, 2);
+    const dataReporter = new DataReporter(includedConds, layerConds, max);
     new Taybl(dataReporter.getDataObject()).withVerticalLineStyle(":").print();
     console.log("");
     console.log(

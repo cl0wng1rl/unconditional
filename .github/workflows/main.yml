@@ -8,7 +8,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Find Conditionals
-        uses: gabrielbarker/Unconditional@v0.1.6
+        uses: gabrielbarker/Unconditional@v0.1.7
         with:
           include: "/src/**/*.ts"
           conditionalLayer: "/src/**/*.test.ts"
