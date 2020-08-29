@@ -10,9 +10,20 @@ type TableObject = { _data: TableSection[] };
 export default class DataReporter {
   private data: ReportData = DataReporter.defaultReportData();
 
-  public getDataObject(included: Conditional[], layer: Conditional[], max: number): TableObject {
+  constructor(included: Conditional[], layer: Conditional[], max: number) {
     this.data = this.getData(included, layer, max);
+  }
+
+  public getDataObject(): TableObject {
     return { _data: [this.getIncludedSection(this.data), this.getLayerSection(this.data)] };
+  }
+
+  public getPercentIncluded(): number {
+    return this.data.summary["percent included"];
+  }
+
+  public getNumberOfExceedingFiles(): number {
+    return this.data.summary["files exceeding max"];
   }
 
   private getData(included: Conditional[], layer: Conditional[], max: number): ReportData {

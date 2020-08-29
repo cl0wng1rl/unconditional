@@ -25,10 +25,14 @@ async function run(): Promise<void> {
     const nonLayerConds: Conditional[] = detector.getConditionals(await fr.getNonLayerPaths());
 
     const conditionalReport = new ConditionalReporter().getDataObject(nonLayerConds);
-    const dataReport = new DataReporter().getDataObject(includedConds, layerConds, 2);
-
     new Taybl(conditionalReport).withHorizontalLineStyle("=").print();
-    new Taybl(dataReport).withVerticalLineStyle(":").print();
+
+    const dataReporter = new DataReporter(includedConds, layerConds, 2);
+    new Taybl(dataReporter.getDataObject()).withVerticalLineStyle(":").print();
+    console.log("");
+    console.log(`Percentage in Conditional Layer: ${dataReporter.getPercentIncluded()}`);
+    console.log(`Number of Files Exceeding Max: ${dataReporter.getNumberOfExceedingFiles()}`);
+    console.log("");
   } catch (error) {
     core.setFailed(error.message);
   }

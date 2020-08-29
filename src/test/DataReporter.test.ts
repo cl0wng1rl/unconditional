@@ -36,13 +36,37 @@ const layer = [
 
 describe("DataReporter", () => {
   describe("getDataObject", () => {
-    it("should call taybl with the correct object", async () => {
+    it("should create the correct object", async () => {
       // Given
-      const reporter = new DataReporter();
+      const reporter = new DataReporter(include, layer, 1);
       // When
-      const tayblObject = reporter.getDataObject(include, layer, 1);
+      const tayblObject = reporter.getDataObject();
       // Then
       expect(tayblObject).toEqual(expectedTayblObject);
+    });
+  });
+
+  describe("getPercentIncluded", () => {
+    it("should return correct percentage", async () => {
+      // Given
+      const reporter = new DataReporter(include, layer, 1);
+      // When
+      const percent = reporter.getPercentIncluded();
+      // Then
+      const expectedPercentIncluded = (100 * layer.length) / include.length;
+      expect(percent).toEqual(expectedPercentIncluded);
+    });
+  });
+
+  describe("getNumberOfExceedingFiles", () => {
+    it("should return the number of files that contain more than the max number of conditionals", async () => {
+      // Given
+      const reporter = new DataReporter(include, layer, 1);
+      // When
+      const exceeding = reporter.getNumberOfExceedingFiles();
+      // Then
+      const expectedExceeding = 2;
+      expect(exceeding).toEqual(expectedExceeding);
     });
   });
 });
