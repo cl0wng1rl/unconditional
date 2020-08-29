@@ -30,7 +30,9 @@ async function run(): Promise<void> {
     const dataReporter = new DataReporter(includedConds, layerConds, 2);
     new Taybl(dataReporter.getDataObject()).withVerticalLineStyle(":").print();
     console.log("");
-    console.log(`Percentage in Conditional Layer: ${dataReporter.getPercentIncluded()}`);
+    console.log(
+      `Percentage in Conditional Layer: ${dataReporter.getPercentIncluded().toFixed(1)} %`
+    );
     console.log(`Number of Files Exceeding Max: ${dataReporter.getNumberOfExceedingFiles()}`);
     console.log("");
   } catch (error) {
