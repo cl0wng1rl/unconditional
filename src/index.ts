@@ -1,9 +1,11 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import ConditionalDetector from "./main/ConditionalDetector";
 import FileRetriever from "./main/FileRetriever";
-import TableReporter from "./main/TableReporter";
+import ConditionalReporter from "./main/ConditionalReporter";
 import Conditional from "./main/Conditional";
+import ConditionalDetector from "./main/ConditionalDetector";
+import Taybl from "taybl";
+import DataReporter from "./main/DataReporter";
 
 const parseStringList = (arrString: string): string[] =>
   arrString.split(" ").filter((s) => s.length);
@@ -15,13 +17,24 @@ async function run(): Promise<void> {
     const conditionalLayer: string[] = parseStringList(core.getInput("conditionalLayer"));
     const max: number = Number.parseInt(core.getInput("max"));
 
-    const files = await new FileRetriever(include, exclude, conditionalLayer).getNonLayerPaths();
-    let conditionals: Conditional[] = [];
-    files.forEach(
-      (file) =>
-        (conditionals = conditionals.concat(new ConditionalDetector(file).getConditionals()))
+    const fr = new FileRetriever(include, exclude, conditionalLayer);
+
+    const detector = new ConditionalDetector();
+    const includedConds: Conditional[] = detector.getConditionals(await fr.getIncludedPaths());
+    const layerConds: Conditional[] = detector.getConditionals(await fr.getLayerPaths());
+    const nonLayerConds: Conditional[] = detector.getConditionals(await fr.getNonLayerPaths());
+
+    const conditionalReport = new ConditionalReporter().getDataObject(nonLayerConds);
+    new Taybl(conditionalReport).withHorizontalLineStyle("=").print();
+
+    const dataReporter = new DataReporter(includedConds, layerConds, 2);
+    new Taybl(dataReporter.getDataObject()).withVerticalLineStyle(":").print();
+    console.log("");
+    console.log(
+      `Percentage in Conditional Layer: ${dataReporter.getPercentIncluded().toFixed(1)} %`
     );
-    new TableReporter().printTable(conditionals);
+    console.log(`Number of Files Exceeding Max: ${dataReporter.getNumberOfExceedingFiles()}`);
+    console.log("");
   } catch (error) {
     core.setFailed(error.message);
   }

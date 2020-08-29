@@ -1,4 +1,3 @@
-// Offset by 1
 if(true) { // Standard without space
   return 0;
 }
