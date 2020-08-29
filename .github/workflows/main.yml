@@ -10,8 +10,8 @@ jobs:
       - name: Find Conditionals
         uses: gabrielbarker/Unconditional@v0.1.6
         with:
-          include: "'/src/**/*.ts'"
-          conditionalLayer: "'/src/test/**/*.ts'"
+          include: "/src/**/*.ts"
+          conditionalLayer: "/src/**/*.test.ts"
           max: "1"
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
