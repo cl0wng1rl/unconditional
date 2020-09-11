@@ -24,17 +24,24 @@ async function run(): Promise<void> {
     const layerConds: Conditional[] = detector.getConditionals(await fr.getLayerPaths());
     const nonLayerConds: Conditional[] = detector.getConditionals(await fr.getNonLayerPaths());
 
-    const conditionalReport = new ConditionalReporter().getDataObject(nonLayerConds);
-    new Taybl(conditionalReport).withHorizontalLineStyle("=").print();
-
     const dataReporter = new DataReporter(includedConds, layerConds, max);
     new Taybl(dataReporter.getDataObject()).withVerticalLineStyle(":").print();
     console.log("");
     console.log(
       `Percentage in Conditional Layer: ${dataReporter.getPercentIncluded().toFixed(1)} %`
     );
-    console.log(`Number of Files Exceeding Max: ${dataReporter.getNumberOfExceedingFiles()}`);
+    const exceeding = dataReporter.getNumberOfExceedingFiles();
+    console.log(`Number of Files Exceeding Max: ${exceeding}`);
     console.log("");
+
+    if (dataReporter.getNumberOfExceedingFiles()) {
+      core.setFailed(`There are ${exceeding} files containing too many conditionals!`);
+    } else {
+      console.log("Congratulations! Your code is unconditional.");
+    }
+
+    const conditionalReport = new ConditionalReporter().getDataObject(nonLayerConds);
+    new Taybl(conditionalReport).withHorizontalLineStyle("=").print();
   } catch (error) {
     core.setFailed(error.message);
   }
