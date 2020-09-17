@@ -13,5 +13,3 @@ jobs:
           include: "/src/**/*.ts"
           conditionalLayer: "/src/**/*.test.ts"
           max: "1"
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
