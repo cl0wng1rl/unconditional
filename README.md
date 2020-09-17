@@ -19,6 +19,7 @@
 <b>A GitHub action to determine the concentration and distribution of conditional logic in your code</b>
 
 <a href="#overview">Overview</a> •
+<a href="#background">Background</a> •
 <a href="#license">License</a>
 
 </div>
@@ -29,6 +30,10 @@
 > -- _Sandi Metz, [Make Everything The Same](https://sandimetz.com/blog/2016/6/9/make-everything-the-same)_
 
 ## Overview
+
+Unconditional is a workflow that locates `if statements` in your code. You can set limits on how many conditionals to allow in a given file, and restrict where Unconditional should look for them. This helps to reduce complexity and promote polymorphism.
+
+## Background
 
 There is a school of thought that conditionals in your code, especially excessive conditionals, indicate a deeper issue. In object oriented programming, we should strive to keep our classes as simple as possible. When we add conditionals, we split the path through our code. This adds complexity! Adding conditionals also often forces us to add _more_ conditionals to account for this complexity. This is another underlying problem with conditionals; they _breed_.
 
