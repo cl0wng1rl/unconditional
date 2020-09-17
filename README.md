@@ -19,6 +19,8 @@
 <b>A GitHub action to determine the concentration and distribution of conditional logic in your code</b>
 
 <a href="#overview">Overview</a> •
+<a href="#how-to-use">How To Use</a> •
+<a href="#for-reference">For Reference</a> •
 <a href="#background">Background</a> •
 <a href="#license">License</a>
 
@@ -31,7 +33,34 @@
 
 ## Overview
 
-Unconditional is a workflow that locates `if statements` in your code. You can set limits on how many conditionals to allow in a given file, and restrict where Unconditional should look for them. This helps to reduce complexity and promote polymorphism.
+Unconditional is a workflow that locates `if` statements in your code. You can set limits on how many conditionals to allow in a given file, and restrict where Unconditional should look for them. This helps to reduce complexity and promote polymorphism.
+
+## How To Use
+
+Unconditional accepts 4 input variables:
+
+- The paths that should be included in the search, given as glob patterns seperated by commas
+- The paths that should be excluded from the search, given as glob patterns seperated by commas
+- The paths that should be considered an acceptable layer to contain conditional logic, given as glob patterns seperated by commas
+- The maximum number of `if` statements that can occur in any given included file outside of the conditional layer, given as an integer
+
+An example of a workflow step that makes use of Unconditional is given below:
+
+```yaml
+- name: Find Conditionals
+        uses: gabrielbarker/Unconditional@v1.0.0
+        with:
+          include: "/src/**/*.ts"
+          exclude: "/src/**/*.test.ts"
+          conditionalLayer: "/src/ui/**/*.ts"
+          max: "3"
+```
+
+This step would search the repo for `if` statements, only checking files in the `src` directory with the `.ts` extension, that don't have the `.test.ts` extention. It will then print a report of all the conditionals that it found. If conditionals are found in the `ui` directory under `src` then they are ignored from the final count. Then, if any file matching the given paths, outside of the conditional layer, contains _more than 3_ conditionals, the step will result in failure.
+
+## For Reference
+
+This repo makes use of unconditional, so for a reference of how unconditional is used in context, check the `.github/workflows` directory, for the workflow titled `main.yml`. This workflow checks out the repo and performs an unconditional check.
 
 ## Background
 
