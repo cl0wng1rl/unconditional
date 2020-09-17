@@ -24,7 +24,7 @@ async function run(): Promise<void> {
     const layerConds: Conditional[] = detector.getConditionals(await fr.getLayerPaths());
     const nonLayerConds: Conditional[] = detector.getConditionals(await fr.getNonLayerPaths());
 
-    const dataReporter = new DataReporter(includedConds, layerConds, max);
+    const dataReporter = new DataReporter(includedConds, layerConds, nonLayerConds, max);
     new Taybl(dataReporter.getDataObject()).withVerticalLineStyle(":").print();
     console.log("");
     console.log(

@@ -10,8 +10,8 @@ type TableObject = { _data: TableSection[] };
 export default class DataReporter {
   private data: ReportData = DataReporter.defaultReportData();
 
-  constructor(included: Conditional[], layer: Conditional[], max: number) {
-    this.data = this.getData(included, layer, max);
+  constructor(included: Conditional[], layer: Conditional[], nonLayer: Conditional[], max: number) {
+    this.data = this.getData(included, layer, nonLayer, max);
   }
 
   public getDataObject(): TableObject {
@@ -26,11 +26,16 @@ export default class DataReporter {
     return this.data.summary["files exceeding max"];
   }
 
-  private getData(included: Conditional[], layer: Conditional[], max: number): ReportData {
+  private getData(
+    included: Conditional[],
+    layer: Conditional[],
+    nonLayer: Conditional[],
+    max: number
+  ): ReportData {
     const data: ReportData = DataReporter.defaultReportData();
     data.included = this.getMainReportData(included);
     data.layer = this.getMainReportData(layer);
-    data.summary = this.getComparativeData(included, layer, max);
+    data.summary = this.getComparativeData(included, layer, nonLayer, max);
     return data;
   }
 
@@ -45,16 +50,17 @@ export default class DataReporter {
   private getComparativeData(
     included: Conditional[],
     layer: Conditional[],
+    nonLayer: Conditional[],
     max: number
   ): ComparativeData {
     const data = DataReporter.defaultComparativeData();
     data["percent included"] = (100 * layer.length) / included.length;
-    data["files exceeding max"] = this.getFilesExceedingMax(included, max);
+    data["files exceeding max"] = this.getFilesExceedingMax(nonLayer, max);
     return data;
   }
 
   private getFilesExceedingMax(conditionals: Conditional[], max: number) {
-    return [...this.includedPathsSet(conditionals)]
+    return [...this.getPathsSet(conditionals)]
       .map((path) => ({
         path: path,
         count: conditionals.filter((cond) => cond.getFilePath() === path).length,
@@ -62,8 +68,8 @@ export default class DataReporter {
       .filter((obj) => obj.count > max).length;
   }
 
-  private includedPathsSet(included: Conditional[]): Set<string> {
-    return new Set(included.map((cond) => cond.getFilePath()));
+  private getPathsSet(conditionals: Conditional[]): Set<string> {
+    return new Set(conditionals.map((cond) => cond.getFilePath()));
   }
 
   private static defaultReportData(): ReportData {
